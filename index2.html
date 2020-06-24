@@ -10,6 +10,20 @@
           background: #ccc;
         }
       }
+	    .button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
     </style>
   </head>
   <body>
@@ -48,12 +62,18 @@ function init() {
   canvas.height = 100;
   drawFrame();
 }
-
+function reactToButton {
+	var btn = document.getElementById("mybtn");
+btn.value = 'my value'; // will just add a hidden value
+	if (btn.innerHTML=="Stop") btn.innerHTML = "Start";
+    else btn.innerHTML = "Stop";
+}
 window.addEventListener('load', init);
       </script>
     
       
     body???
+	  <button class="button button1" id="mybtn" onclick="reactToButton()">Stop</button>
     <div class="video-container">
       <canvas id="canvas"></canvas>
     </div>
