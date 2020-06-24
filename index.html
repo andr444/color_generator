@@ -2,8 +2,60 @@
 <html>
   <head>
     <title>123</title>
+    <style>
+      .video-container {
+        width: 500px;
+        canvas {
+          max-width: 100%;
+          background: #ccc;
+        }
+      }
+    </style>
   </head>
   <body>
+    <script>
+      var canvas;
+var context;
+
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * max) + min;
+}
+
+function updateImageData(imageData) {
+  for (var i = 0; i < imageData.data.length; i += 4) {
+    imageData.data[i] = randomNumber(0, 255);
+    imageData.data[i+1] = randomNumber(0, 255);
+    imageData.data[i+2] = randomNumber(0, 255);
+    imageData.data[i+3] = 255;
+  }
+}
+
+function drawFrame() {
+  var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+  
+  updateImageData(imageData);
+
+	context.putImageData(imageData, 0, 0);
+
+  //requestAnimationFrame(drawFrame);
+}
+
+function init() {
+    canvas = document.getElementById('canvas');
+  context = canvas.getContext('2d');
+  
+  canvas.width = 200;
+  canvas.height = 100;
+  drawFrame();
+}
+
+window.addEventListener('load', init);
+      </script>
+    
+      
     body???
+    <div class="video-container">
+      <canvas id="canvas"></canvas>
+    </div>
   </body>
 </html>
