@@ -28,8 +28,9 @@
   </head>
   <body>
     <script>
-      var canvas;
+    var canvas;
 var context;
+var thirdNumOfColors;
 
 function randomNumber(min, max) {
   return Math.floor(Math.random() * max) + min;
@@ -37,53 +38,70 @@ function randomNumber(min, max) {
 
 function updateImageData(imageData) {
   for (var i = 0; i < imageData.data.length; i += 4) {
-    imageData.data[i] = randomNumber(0, 255);
-    imageData.data[i+1] = randomNumber(0, 255);
-    imageData.data[i+2] = randomNumber(0, 255);
+    var step = 255 / thirdNumOfColors;
+    imageData.data[i] = (randomNumber(0, 255) % thirdNumOfColors) * step;
+    imageData.data[i+1] = (randomNumber(0, 255) % thirdNumOfColors) * step;
+    imageData.data[i+2] = (randomNumber(0, 255) % thirdNumOfColors) * step;
     imageData.data[i+3] = 255;
   }
 }
 
 function drawFrame() {
-  var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
   
-  updateImageData(imageData);
-
+  var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
   var btn = document.getElementById("mybtn");
-  if (btn.value=="started") context.putImageData(imageData, 0, 0);
+  var g_width = document.getElementById("grid_width");
+    var g_height = document.getElementById("grid_height");
 
+  if (btn.value=="started")  {
+    canvas.width = g_width.value;
+    canvas.height = g_height.value;
+  updateImageData(imageData);
+  }
+
+	context.putImageData(imageData, 0, 0);
   requestAnimationFrame(drawFrame);
 }
 
 function init() {
     canvas = document.getElementById('canvas');
   context = canvas.getContext('2d');
-  
-  canvas.width = 200;
-  canvas.height = 100;
+  thirdNumOfColors = 10;
+  canvas.width = 500;
+  canvas.height = 300;
   drawFrame();
 }
+
 function reactToButton() {
+  var lbl = document.getElementById("total_colors");
+  thirdNumOfColors = document.getElementById("colors").value;
+  lbl.innerHTML = 3 * thirdNumOfColors;
 	var btn = document.getElementById("mybtn");
-	btn.value = 'my value'; // will just add a hidden value
-	if (btn.innerHTML=="Stop"){
-		btn.value = "stopped";
-		btn.innerHTML = "Start";
-	}
-    	else {
-		btn.value = "started";
-		btn.innerHTML = "Stop";
-	}
-		
+  
+btn.value = 'my value'; // will just add a  hidden value
+	if (btn.innerHTML=="Stop") {
+    btn.innerHTML = "Start";
+    btn.value = "stopped";
+  }
+    else {
+      btn.innerHTML = "Stop";
+      btn.value = "started";
+    }
 }
+
 window.addEventListener('load', init);
-      </script>
-    
+	  </script>
       
-    body???
-	  <button class="button button1" id="mybtn" onclick="reactToButton()" value="started">Stop</button>
-    <div class="video-container">
-      <canvas id="canvas"></canvas>
-    </div>
+    	  <button class="button button1" id="mybtn" onclick="reactToButton()">Stop</button><br>
+<label for="fname">Height:</label>
+  <input type="text" id="grid_height" name="g1" type="number" value="200"><br>
+<label for="fname">Width:</label>
+  <input type="text" id="grid_width" name="g2" type="number" value="200"><br>
+<label for="fname">Colors (there will be 3 times as many):</label>
+  <input type="text" id="colors" name="g2" type="number" value="10" size=8 onChange="calc_colors()">*3=<label id="total_colors">30</label><br>
+<d
+<div class="video-container">
+  <canvas id="canvas"></canvas>
+</div>
   </body>
 </html>
