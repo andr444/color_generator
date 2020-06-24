@@ -49,7 +49,8 @@ function drawFrame() {
   
   updateImageData(imageData);
 
-	context.putImageData(imageData, 0, 0);
+  var btn = document.getElementById("mybtn");
+  if (btn.value=="started") context.putImageData(imageData, 0, 0);
 
   requestAnimationFrame(drawFrame);
 }
@@ -64,16 +65,23 @@ function init() {
 }
 function reactToButton() {
 	var btn = document.getElementById("mybtn");
-btn.value = 'my value'; // will just add a hidden value
-	if (btn.innerHTML=="Stop") btn.innerHTML = "Start";
-    else btn.innerHTML = "Stop";
+	btn.value = 'my value'; // will just add a hidden value
+	if (btn.innerHTML=="Stop"){
+		btn.value = "stopped";
+		btn.innerHTML = "Start";
+	}
+    	else {
+		btn.value = "started";
+		btn.innerHTML = "Stop";
+	}
+		
 }
 window.addEventListener('load', init);
       </script>
     
       
     body???
-	  <button class="button button1" id="mybtn" onclick="reactToButton()">Stop</button>
+	  <button class="button button1" id="mybtn" onclick="reactToButton()" value="started">Stop</button>
     <div class="video-container">
       <canvas id="canvas"></canvas>
     </div>
