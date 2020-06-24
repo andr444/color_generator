@@ -52,7 +52,10 @@ function drawFrame() {
   var btn = document.getElementById("mybtn");
   var g_width = document.getElementById("grid_width");
     var g_height = document.getElementById("grid_height");
-
+  var lbl = document.getElementById("total_colors");
+  thirdNumOfColors = document.getElementById("colors").value;
+  lbl.innerHTML = 3 * thirdNumOfColors;
+	
   if (btn.value=="started")  {
     canvas.width = g_width.value;
     canvas.height = g_height.value;
@@ -73,10 +76,8 @@ function init() {
 }
 
 function reactToButton() {
-  var lbl = document.getElementById("total_colors");
-  thirdNumOfColors = document.getElementById("colors").value;
-  lbl.innerHTML = 3 * thirdNumOfColors;
-	var btn = document.getElementById("mybtn");
+  
+var btn = document.getElementById("mybtn");
   
 btn.value = 'my value'; // will just add a  hidden value
 	if (btn.innerHTML=="Stop") {
@@ -92,7 +93,7 @@ btn.value = 'my value'; // will just add a  hidden value
 window.addEventListener('load', init);
 	  </script>
       
-    	  <button class="button button1" id="mybtn" onclick="reactToButton()">Stop</button><br>
+    	  <button class="button button1" id="mybtn" onclick="reactToButton()" value="started">Stop</button><br>
 <label for="fname">Height:</label>
   <input type="text" id="grid_height" name="g1" type="number" value="200"><br>
 <label for="fname">Width:</label>
