@@ -38,7 +38,7 @@ function randomNumber(min, max) {
 
 function updateImageData(imageData) {
   for (var i = 0; i < imageData.data.length; i += 4) {
-    var step = 255 / thirdNumOfColors;
+    var step = Math.floor(255 / thirdNumOfColors);
     imageData.data[i] = (randomNumber(0, 255) % thirdNumOfColors) * step;
     imageData.data[i+1] = (randomNumber(0, 255) % thirdNumOfColors) * step;
     imageData.data[i+2] = (randomNumber(0, 255) % thirdNumOfColors) * step;
